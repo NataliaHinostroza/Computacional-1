@@ -1,0 +1,181 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\topmargin=-1.2cm
+\textheight=22cm
+\textwidth=16cm  
+\oddsidemargin=0.45cm  
+\setlength{\parindent}{0cm}
+\renewcommand{\baselinestretch}{1.1}
+\graphicspath{{hola/}}
+\title{Manejo de Datos en Emacs}
+\author{Hinostroza Moya Natalia}
+\date{01 de Febrero de 2017}
+
+\begin{document}
+%===============================================================================
+% PORTADA
+%===============================================================================
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=0.35]{escudo.png}
+\end{center}
+\vspace*{0.02in}
+\begin{center}
+
+\rmfamily\textbf{\LARGE UNIVERSIDAD DE SONORA}\\
+\vspace*{1.02in}
+{\Large División de Ciencias Exactas y Naturales}\\
+{\Large Departamento de Física}\\
+
+\vspace*{0.99in}
+\rule{99mm}{0.1mm}\\
+\vspace*{0.04in}
+\textbf{\LARGE Sondeos Atmosféricos y\\ 
+Manejo de Datos en Emacs}\\
+\vspace*{0.001in}
+\rule{99mm}{0.1mm}
+
+\vspace*{1in}
+\normalsize{Autor:}\
+\normalsize{Natalia Hinostroza Moya}\\
+\vspace*{0.3mm}
+\normalsize Profesor:\
+\normalsize Dr. Carlos Lizárraga\\
+\vspace*{1.5cm}
+\normalsize 07 de febrero de 2017
+
+\end{center}
+\end{titlepage}
+
+%==============================================================================
+% DESARROLLO
+%==============================================================================
+
+\textbf{\section*{\Large Resumen}}
+\large En el presente trabajo se hablará de cómo se utilizo GNU Emacs para organizar los datos obtenidos en sondeos atmosféricos llevados a cabo en la estación de  Monterrey, Nuevo León. Dichos datos fueron organizados por la Universidad de Wyoming\\
+(http://weather.uwyo.edu/upperair/sounding.html).\\
+
+Así mismo, se mostrarán los resultados acerca del cambio de la presión atmosférica y la temperatura con respecto a la altura, mediante gráficas realizadas con los datos organizados.\\
+
+\textbf{\section{\Large Introducción}}
+\large GNU Emacs es reconocido como uno de los editores de texto más completos y populares. En esta ocasión, GNU Emacs nos permitió organizar los datos de sondas atmosféricas.\\
+
+En el presente trabajo se mostraran las gráficas que fueron posible realizarse con una adecuada organización de los datos de sondeos, explicando que representa cada una de ellas. También se mostrara el proceso que se llevo a cabo para extraer los datos de sondeos de todo el año pasado (2016) con Emacs.\\
+
+\textbf{\section{\Large Globo Meteorológico}}
+\large Los globos meteorológicos, también conocidos como globo sonda, son globos aerostáticos no tripulados que elevan instrumentos que efectuan mediciones automáticas de presión, temperatura, humedad y otros datos meteorológicos que suceden a diferentes alturas.\\
+
+Los globos de grandes dimenciones son capaces de alcanzar los 30,000 metros permitiendo realizar mediciones continuas o escalonadas en las diversas capas de la atmósfera. Los datos colectados son emitidos por radio o bien, son regitrados y posteriormente recuperados cuando el globo estalla y deciende en paracaidas los aparatos.\\ 
+
+Este tipo de globos son los que se utilizaron en los sondeos que estudiamos en esta actividad. En este caso, son los sondeos realizados en Monterrey, Nuevo León, durante todo el 2016 y el día primero de febrero.\\
+
+\begin{center}
+\includegraphics[scale=0.90]{globo-sonda.jpg}\\
+\small Globo sonda elevandose hacia la atmósfera
+\end{center}
+
+\vspace{.5cm}
+\textbf{\section{\Large Variación de la Presión y la Temperatura}}
+\large Como ya estudiamos en la activida pasada, la atmosfera está divida en varias capas en las cuales varían la temperatura y la presión debido a sus composiciones y alturas.\\ 
+
+A continuacipon se presentan las gráficas de la variación de la temperatura y la presión con respecto a la altura con los datos recopilados del sondeo del primero de frebrero del presente año a las 12Z en la ciudad de Monterrey, Nuevo León.\\
+
+En la gráfica de la prresión se observa como la presión aumenta exponencialmente. Podemos concluir que el globo no llego muy alto.\\
+
+La gráfica de la temperatura con respecto a la altura muestra que dentro de la tropósfera la temperatura va disminullendo con la altitud, pero al llegar a la termósfera la temperatura empieza a elevarse.  
+
+\textbf{\subsection*{\large Presión atmosférica en función de la altitud}}
+\vspace*{0.5cm}
+\begin{center}
+\includegraphics[scale=0.67]{MonterreyP.png}\\
+\end{center}
+\textbf{\subsection*{\large Temperatura atmosférica en función de la altitud}}
+\vspace*{0.5cm}
+\begin{center}
+\includegraphics[scale=0.67]{MonterreyT.png}\\
+\end{center}
+
+\textbf{\subsection{\Large Proceso para realizar las gráficas}}
+\large Para crear estas gráfica utilizamos gnuplot.
+\vspace*{0.5cm}
+\begin{verbatim}
+G N U P L O T
+	Version 4.6 patchlevel 6    last modified September 2014
+	Build System: Linux x86_64
+
+	Copyright (C) 1986-1993, 1998, 2004, 2007-2014
+	Thomas Williams, Colin Kelley and many others
+
+	gnuplot home:     http://www.gnuplot.info
+	faq, bugs, etc:   type "help FAQ"
+	immediate help:   type "help"  (plot window: hit 'h')
+
+Terminal type set to 'qt'
+gnuplot> plot 'Monterrey' using 1:2
+gnuplot> plot 'Monterrey' using 3:2
+\end{verbatim}
+
+
+\textbf{\section{\Large Sondeos en Monterrey del 2016}}
+\large En la siguiente sección se presenta una tabla en la que se indican la cantidad de sondeos realizados en todo el 2016.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline \hline
+Mes & 00Z & 12Z  \\
+\hline \hline
+Enero & 0 & 0 \\ \hline
+Febrero & 0 & 0\\ \hline
+Marzo & 0 & 0\\ \hline
+Abril & 0 & 18 \\ \hline
+Mayo & 0 & 31 \\ \hline
+Junio & 0 & 29 \\ \hline
+Julio & 0 & 25 \\ \hline
+Agosto & 0 & 13 \\ \hline
+Septiembre & 0 & 30 \\ \hline
+Octubre & 0 & 15 \\ \hline
+Noviembre & 15 & 16 \\ \hline
+Diciembre & 15 & 18 \\ \hline
+\end{tabular}
+\label{tabla:sencilla}
+\end{center}
+\end{table}
+
+\textbf{\subsection{\Large Recolección de datos }}
+Para esto creamos un archivo con todos los datos de sondeos del 2016. Con el comando grep para filtrar las palabras necesarias con las que encontramos los datos.\\
+
+A continuación se muestra un ejemplo de como se utilizó este comando.\\
+
+\begin{verbatim}
+nataliahm@ltsp65:~/Comp.Act2$ grep Observations sondeos.txt | grep Jun | 
+grep 00Z | wc
+      0       0       0
+nataliahm@ltsp65:~/Comp.Act2$ grep Observations sondeos.txt | grep Jun | 
+grep 12Z | wc
+     29     290    1914
+\end{verbatim}
+
+\large Podemos ver que buscabamos el mes y la hora en la que queriamos saber los datos. Este comando nos muestra el número de renglones, el número de palabras y el número de caracteres, en el orden  mencionado. El dato que nos interesa es el número de los renglones que hay, pues cada renglon indica un sondeo. 
+\pagebreak
+
+%==============================================================================
+% BIBLIOGRAFIA
+%==============================================================================
+
+\textbf{\section{\Large Bibliografía}}
+
+\begin{itemize}
+\item Vasco, E. (2017). Globo Sonda. Euskalmet.euskadi.eus. Retrieved 8 February 2017, from 
+http://www.euskalmet.euskadi.eus/s076072/es/contenidos/informacion/dic\_globo\_sonda/es\_7214/es\_globo\_sonda.html
+
+\item ENCONTRADO GLOBO SONDA, Las Montañas - Mendiak.net. (2017). Mendiak.net. Retrieved 8 February 2017, from 
+http://www.mendiak.net/foro/viewtopic.php?t=50575
+\end{itemize}
+
+
+
+\end{document}
