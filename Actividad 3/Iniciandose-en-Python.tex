@@ -1,0 +1,219 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\topmargin=-1.2cm
+\textheight=22cm
+\textwidth=16cm  
+\oddsidemargin=0.45cm  
+\setlength{\parindent}{0cm}
+\renewcommand{\baselinestretch}{1.1}
+\title{Iniciándose en Python}
+\graphicspath{{hola/}}
+\author{Hinostroza Moya Natalia}
+\date{14 de Febrero de 2017}
+
+\begin{document}
+
+%===============================================================================
+% PORTADA
+%===============================================================================
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=0.35]{escudo.png}
+\end{center}
+\vspace*{0.02in}
+\begin{center}
+
+\rmfamily\textbf{\LARGE UNIVERSIDAD DE SONORA}\\
+\vspace*{1.02in}
+{\Large División de Ciencias Exactas y Naturales}\\
+{\Large Departamento de Física}\\
+
+\vspace*{0.99in}
+\rule{99mm}{0.1mm}\\
+\vspace*{0.4cm}
+\textbf{\LARGE Iniciándose en Python}\\
+\vspace*{0.001in}
+\rule{99mm}{0.1mm}
+
+\vspace*{1in}
+\normalsize{Autor:}\
+\normalsize{Natalia Hinostroza Moya}\\
+\vspace*{0.3mm}
+\normalsize Profesor:\
+\normalsize Carlos Lizárraga Celaya\\
+\vspace*{1.5cm}
+\normalsize 15 de febrero de 2017
+
+\end{center}
+\end{titlepage}
+
+%==============================================================================
+% DESARROLLO
+%==============================================================================
+
+%==============================================================================
+\textbf{\section*{\LARGE Resumen}}
+
+\large Para la elavoración de este trabajo aprendimos el lenguaje de Python para la organización de datos en tablas y gráficas mediante Emacs.\\
+
+%==============================================================================
+
+\textbf{\section{\LARGE Introducción}}
+\large Gracias a los globos sonda se pueden hacer muchas mediciones en la atmósfera y saber cómo va cambiando con respecto a la altura.\\
+
+Uno de las mediciones en las que nos enfocamos en esta práctica es el CAPE (Convective Avaliable Potencial Energy), él cual se refiere a la energía potencial disponible para la convección en cualquier instante de tiempo. Este es un parámetro que nos indica qué tanta energía hay disponible para la convección en caso de que esta se inicie. Otra es la cantidad de agua precipitables en la atmósfera, la cual representaremos en este trabajo por sus siglas en inglés PW.\\
+
+En el siguiente reporte se presentan tablas y gráficas que fueron realiadas en Python, con el fin de organizar los datos obtenidos durante los sondeos del año 2016 del CAPE y la presipitación del agua; así mismo, se realizarán los esquemas necesarios para analizar y representar los cambios físicos que son detectados en dichos sondeos. También se presentará la forma en la que se trabajó en Python. Pues la finalidad principal es que aprendamos a utilizar esta herramienta. 
+
+
+%==============================================================================
+
+\textbf{\section{\LARGE Presentación e Interpretación de los Datos}}
+Principalmente, para la presentación de los datos, debemos de organizar lo que necesitamos. Los datos que utilizamos fueron los anteriormente recolectados en la actividad pasada sobre los sondeos atmosféricos; es por esto que nos tuvimos que deshacer de todos aquellos datos que estaban de sobra. Para realizar esto utilizamos los comandos egrep y sed de la siguiente manera.\\
+
+\begin{verbatim}
+nataliahm@ltsp71:~$ cat sondeos.txt |egrep -i "Observation|CAPE|precipitable"|
+sed -e"/12Z/,2d" > 00Zanual.txt
+nataliahm@ltsp71:~$ cat sondeos.txt |egrep -i "Observation|CAPE|precipitable"|
+sed -e"/00Z/,2d" > 12Zanual.txt
+\end{verbatim}
+
+Al ingresar esto en la terminal se crearon los archivos 00Zanual.txt y 12Zanual.txt con las fechas de los sondeos, el CAPE registrado y el PW. Despues se acomodarón estos datos en columnas separadas por comas para poder crear las tablas en Python.\\ 
+
+Para trabajar en Python ulizamos jupyter notebook.
+
+\textbf{\subsection{\LARGE Tabulación en Python}}
+Tal como dijimos anteriormente, para crear las tablas en Python, primeramente ordenamos los datos de la fecha, el CAPE y WP. Con esto ya hecho se ingreso el siguiente comando en Python.\\
+\vspace*{1cm}
+
+\textbf{Este fue el utilizado para tabular los datos a las 00Z horas.}\\
+\begin{verbatim}
+import pandas as pd
+import numpy as np
+import matplotlib as plt
+df = pd.read_csv("/home/nataliahm/Act.3/00Zanual.csv", names=['Fecha', 'CAPE', 'PW'])
+df.head(6)
+\end{verbatim}
+\vspace*{1cm}
+
+\textbf{Este fue el utilizado para tabular los datos a las 12Z horas.}
+
+\begin{verbatim}
+import pandas as pd
+import numpy as np
+import matplotlib as plt
+df = pd.read_csv("/home/nataliahm/Act.3/12Zanual.csv", names=['Fecha', 'CAPE', 'PW'])
+df.head(6)
+\end{verbatim}
+\vspace*{1cm}
+
+\textbf{Este fue el utilizado para crear una tabla con los persentiles, el mínimo y el máximo de los datos.}
+
+\begin{verbatim}
+df_clean.describe()
+\end{verbatim}
+
+\pagebreak
+
+\vspace*{1cm}
+\vspace*{0.2cm}
+\includegraphics[]{00Z.png}
+\includegraphics[]{12Z.png}
+
+\vspace*{0.7cm}
+\begin{center}
+\vspace*{0.5cm}
+\includegraphics[]{123.png}
+\end{center}
+
+\pagebreak
+
+%==============================================================================
+
+\textbf{\subsection{\LARGE Histogramas}}
+\textbf{\subsubsection{\large Histogramas CAPE}}
+Para realizar este histograma en Python se utilizo el siguiente comando.
+
+\begin{verbatim}
+df.hist(u'CAPE',bins=100)
+\end{verbatim}
+
+\vspace*{1cm}
+\begin{center}
+\includegraphics[]{CAPE.png}
+\end{center}
+
+\vspace*{1cm}
+En este histograma podemos observar que los datos tienen una forma asimétrica con la mayoría de sus datos hacia la izquierda. 
+
+\pagebreak
+\textbf{\subsubsection{\Large Histogramas WP}}
+Para la realización de este histograma se utilizó el siguiente comando.
+
+\begin{verbatim}
+df.hist(u'WP',bins=100)
+\end{verbatim}
+\vspace*{1cm}
+
+\begin{center}
+\includegraphics[]{PW.png}
+\end{center}
+\vspace*{1cm}
+
+Podemos observar que los datos casi tienen una distribución aparentemente normal, pero tienen más peso hacia la derecha del histograma. 
+
+\pagebreak
+
+%==============================================================================
+
+\textbf{\subsection{\LARGE Diagramas de caja}}
+\textbf{\subsubsection{\Large Diagrama de caja CAPE}}
+El diagrama que se muestra a continuación fue creado en Python con el comando siguiente. 
+
+
+\begin{verbatim}
+df.boxplot(column='CAPE')
+\end{verbatim}
+
+\vspace*{1cm}
+\begin{center}
+\includegraphics[]{CAPEC.png}
+\end{center}
+\vspace*{1cm}
+
+Con este diagrama de cajas podemos observar lo que se decía anteriormente en el histograma del CAPE, muchos datos son cero con una mediana muy alejada del centro de los datos y con algunos datos atípicos. 
+
+
+\pagebreak
+\textbf{\subsubsection{\Large Diagrama de caja PW}}
+Este diagrama de caja fue realizado con el comando que aparece a continuación. 
+
+\begin{verbatim}
+df.boxplot(column='PW')
+\end{verbatim}
+\vspace*{1cm}
+
+\begin{center}
+\includegraphics[]{PWC.png}
+\end{center}
+\vspace*{1cm}
+
+La mediana de los valores de PW no se encuentra muy alejada del centro de los datos y no se presentan datos atípicos. A comparación de los datos para CAPE, WP tiene una distribución menos asimétrica. 
+
+
+\pagebreak
+%==============================================================================
+% BIBLIOGRAFIA
+%==============================================================================
+
+\textbf{\section{\Large Bibliografía}}
+\begin{itemize}
+\item CAPE y algunas nociones básicas sobre convección atmosférica. (2017). Meteoillesbalears.com. Retrieved 14 February 2017, from http://www.meteoillesbalears.com/?p=623
+
+\item computacional1 [licensed for non-commercial use only] / Actividad 3 (2017-1). (2017). Computacional1.pbworks.com. Retrieved 15 February 2017, from\\ http://computacional1.pbworks.com/w/page/115266988/Actividad\%203\%20(2017-1)
+\end{itemize}
+
+\end{document}
