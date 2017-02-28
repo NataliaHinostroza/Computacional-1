@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\topmargin=-1.2cm
+\textheight=22cm
+\textwidth=16cm  
+\oddsidemargin=0.45cm  
+\setlength{\parindent}{0cm}
+\renewcommand{\baselinestretch}{1.1}
+\graphicspath{{hola/}}
+\title{Visualizando datos con Pandas y Matplotlib}
+\author{Hinostroza Moya Natalia}
+\date{22 de Febrero de 2017}
+
+\begin{document}
+%===============================================================================
+% PORTADA
+%===============================================================================
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=0.35]{escudo.png}
+\end{center}
+\vspace*{0.02in}
+\begin{center}
+
+\rmfamily\textbf{\LARGE UNIVERSIDAD DE SONORA}\\
+\vspace*{1.02in}
+{\Large División de Ciencias Exactas y Naturales}\\
+{\Large Departamento de Física}\\
+
+\vspace*{0.99in}
+\rule{14cm}{0.1mm}\\
+\vspace*{0.4cm}
+\textbf{\LARGE Visualizando datos con Pandas y Matplotlib}\\
+\vspace*{0.001in}
+\rule{14cm}{0.1mm}
+
+\vspace*{1in}
+\normalsize{Autor:}\
+\normalsize{Natalia Hinostroza Moya}\\
+\vspace*{0.3mm}
+\normalsize Profesor:\
+\normalsize Carlos Lizárraga Celaya\\
+\vspace*{1.5cm}
+\normalsize 23 de febrero de 2017
+
+\end{center}
+\end{titlepage}
+%==============================================================================
+% DESARROLLO
+%==============================================================================
+
+% Resumen
+\textbf{\section*{\LARGE Resumen}}
+En el siguiente reporte se presenta el procedimiento utilizado para llevar a cabo la actividad 4 de la matería de Física Computacional. En cada una de las secciones vienen las indicaciones que se dieron para el desarroyo de la actividad, así mismo, las representaciones gráficas obtenidas en base a los resultados y sus explicaciones. 
+
+% Introducción 
+\textbf{\section{\LARGE Introducción}}
+En esta actividad seguimos analizando los datos de sondeos atmósfericos con el fin de visualizarlos con Pandas y Matlplotlib.\\
+
+Pandas y Matplotlib son bibliotecas que permiten generar gráficas de datos que se encuentren en leguajes de programación Python y su extensión matemática NumPy. Con estás bibliotecas de gráficas realizaremos el análisis del sondeo realizado el 16 de febrero en Monterrey, Nuevo León; con la finalidad de saber como se comporta la presión y la temperatura con respecto a la altitud de la atmósfera. Tambíen, con la ayuda de Matplotlib haremos un tefigrama para, que por medio de su analización, obtener información hacerca de la atmósfera alta. 
+
+% Parte 1
+\textbf{\section{\LARGE Parte 1}}
+\textbf{\large Indicacciones.}
+Con la ayuda de Python y una biblioteca de gráficas como Matplotlib, nos gustaría explorar visualmente las siguientes gráficas para un lanzamiento:
+
+\begin{enumerate}
+\item Presión (hPa) vs. Altura (m).
+\item Temperatura (ºC) vs. Altura (m).
+\item Temperatura de Rocío (DWPT ºC) vs. Altura (m).
+\item Gráficas de Temperatura y Temperatura de Rocío en una sola gráfica.  
+\end{enumerate}
+
+
+\textbf{\subsection{\LARGE Presentación e Interpretación de los Datos}}
+\large Los datos descargados en esta ocasión son del sondeo realizado el 16 de febrero del presente año a las 12Z horas. Al igual que la actividad pasada, primeramente, acomodamos los datos en tablas con columnas separadas por comas para que fuese posible su lectura.\\
+
+Ya teniendo los datos limpios y bien acomodados en un archivo, se creó un archivo en Phyton para hacer una tabla de estos mismos.\\
+
+\begin{center}
+\includegraphics[scale=0.60]{Tabla.png}
+\end{center}
+
+En las siguientes subsecciones se presentan las gráficas que se piden en las instrucciones, junto a sus explicaciones y el procedimiento utilizado para crearlas.   
+
+
+\textbf{\subsubsection{Presión (hPa) vs. Altura (m)}}
+\large Para hacer las gráficas, primero se definió cual era la variable X y cual la Y.\\ 
+
+\begin{verbatim}
+x=df[u'HGHT']
+y=df[u'DWPT']
+\end{verbatim}
+
+Despues, con los siguientes comandos, pedimos a Python que nos creara la gráfica con los nombres que pedimos para cada uno de los ejes.
+
+\begin{verbatim}
+mplt.plot(x,y)
+mplt.grid(True)
+plt.xlabel('Altitud [m]')
+plt.ylabel('DWPT [C]')
+plt.show()
+\end{verbatim}
+
+\vspace*{0.2mm}
+
+\begin{center}
+\includegraphics[scale=0.82]{graf1.png}
+\end{center}
+
+Para las otras gráficas se siguio el mismo procedimiento y comandos, sólo cambiando las columnas utilizadas y los nombres de los ejes. 
+
+\textbf{\subsubsection{Temperatura (DWPT $^{\circ}$C) vs. Altura (m)}}
+
+\vspace{5mm}
+
+\begin{center}
+\includegraphics[scale=0.82]{graf2.png}
+\end{center}
+
+\textbf{\subsubsection{Temperatura de Rocío ($^{\circ}$C) vs. Altura (m)}}
+
+\vspace{5mm}
+
+\begin{center}
+\includegraphics[scale=0.82]{graf3.png}
+\end{center}
+
+\textbf{\subsubsection{Temperatura y Temperatura de Rocío}}
+
+\vspace{5mm}
+
+\begin{center}
+\includegraphics[scale=0.82]{graf6.png}
+\end{center}
+
+En esta última gráfica, la recta verde represeta la temperatura, mientras que la azul representa la temperatura de rocio la cual, podemos observar es menor que la otra. La diferencia entre ellas es más notoria a partir de los 12000 metros de altura aproximadamente. 
+
+% Parte 2
+\textbf{\section{\LARGE Parte 2}}
+\textbf{\large Indicacciones.}
+\large Habiendo producido las gráficas anteriores de la forma tradicional con Matplotlib, ahora en esta actividad, tu reto es producir algo similar a la gráfica, que nos brinde información del estado de la atmósfera alta:\\
+
+Para lo anterior, nos apoyaremos en el paquete tephi para producir los tefigramas. 
+
+\begin{itemize}
+\item Sitio en Github de donde descargar el paquete tephi.
+\item Documentación de tephi.
+\end{itemize}
+
+\textbf{\subsection{\LARGE Tefigrámas}}
+\large Un tefigráma es un diagrama termodinámico que se utiliza para representar temperaturas, humedad y vientos en la atmósfera. Es utilizado para la evaluación de la amplia gama de condiciones atmosféricas.\\
+
+A continuación mostraremos un tefigráma hecho con los datos del cambio de la temperatura y la temperatura de rocío. Este diagrama fue realizado con la biblioteca de tephi.\\
+
+Para realizarlo, primeramente fue necesario descargar el tephi he instalarlos para poder utilizarlo. Los comando utilizados fueron los siguientes, en los cuales importamos tephi y establecimos los archivos con los datos que queriamos graficar.\\
+
+
+\begin{verbatim}
+import os.path
+import tephi as tph
+
+dew_point = pd.read_csv("/home/nataliahm/Act.4/PvsT.csv", 
+names=["Presión", "DWPT"])
+dry_bulb = pd.read_csv("/home/nataliahm/Act.4/PvsDW.csv", 
+names=["Presión", "TEMP"])
+tpg = tph.Tephigram()
+tpg.plot(dew_point)
+tpg.plot(dry_bulb)
+plt.show()
+\end{verbatim}
+
+\begin{center}
+\includegraphics[scale=0.70]{graf5.png}
+\end{center}
+
+\large Las curvas horizontales azules en este tefigráma son las \textbf{isobaras} para saber con mayor presición el cambio de la presión.\\
+
+La diagonales ascendentes son las lines de temperatura constante, son conocidas como \textbf{isobaras}; en dicho esquema, las isobaras tienen unintervalo desde -80$^{\circ}$C hasta -200$^{\circ}$C. Mientras que, las diagonales descendentes son las \textbf{adiabáticas secas}, lineas de temperatura potencial constante.
+
+La lineas en color amarillo son las \textbf{adiabáticas saturadas o húmedas} que representan la temperatura potencial equivalente constante.\\
+
+En otros tefigrámas podemos encontrar \textbf{líneas de razón de mezcla de saturación} que representan valores constantes de capacidad de contener vapor de agua, dicho en otras palabras, indican la cantidad de gramos de agua necesaria para saturar un kilogramo de aire seco a una determinada presión y temperatura. 
+
+\begin{center}
+\includegraphics[scale=0.65]{6.jpg}
+\end{center}
+
+
+\section{\LARGE Conclusión}
+Existen muchas representaciones gráficas, que en nuestro estudio de los fenómenos físicos, le dan una mayor presición al análicis de datos. Gracías a la existencia de las bibliotecas de gráficas utilizadas en esta actividad tenémos podemos crear estos esquemas con tantos datos como nos sea necesario.\\
+
+Es importante aprender a utilizar estás bilbiotecas para que nuestro trabajo sea más ágil y menos tedioso.
+\pagebreak
+%==============================================================================
+% BIBLIOGRAFIA
+%==============================================================================
+\textbf{\section{\LARGE Bibliografía}}
+
+\begin{verbatim}
+MetEd » Iniciar sesión. (2017). Meted.ucar.edu. 
+Retrieved 28 February 2017, from 
+https://www.meted.ucar.edu/mesoprim/tephigram_es/navmenu.php?tab=1&page=1.0.0
+&type=flash
+\end{verbatim}
+
+\end{document}
